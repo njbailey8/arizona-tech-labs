@@ -84,6 +84,49 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const answers = {};
   let stepIndex = 0;
 
+  // ---- Email reporting (Formspree) ----
+  // Sends whatever's been collected so far — on normal completion via fetch,
+  // or via sendBeacon if the visitor closes/leaves the tab mid-chat, so
+  // partial sessions still reach the inbox.
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdnekda';
+  let reportSent = false;
+
+  function buildReportData(status) {
+    const fd = new FormData();
+    fd.append('status', status);
+    fd.append('step', `${stepIndex} of ${steps.length}`);
+    fd.append('name', answers.name || '');
+    fd.append('business', answers.business || '');
+    fd.append('email', answers.email || '');
+    fd.append('phone', answers.phone || '');
+    fd.append('message', answers.message || '');
+    fd.append('_subject', `Chat ${status} — ${answers.business || answers.name || 'anonymous visitor'}`);
+    return fd;
+  }
+
+  function sendCompletedReport() {
+    if (reportSent) return;
+    reportSent = true;
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: buildReportData('completed'),
+      keepalive: true,
+    }).catch(() => {});
+  }
+
+  function sendAbandonedReportIfNeeded() {
+    if (reportSent) return;
+    if (!answers.name && !answers.email) return;
+    reportSent = true;
+    navigator.sendBeacon(FORMSPREE_ENDPOINT, buildReportData('abandoned'));
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') sendAbandonedReportIfNeeded();
+  });
+  window.addEventListener('pagehide', sendAbandonedReportIfNeeded);
+
   function scrollLogToBottom() {
     log.scrollTop = log.scrollHeight;
   }
@@ -116,13 +159,13 @@ document.getElementById('year').textContent = new Date().getFullYear();
       textInput.hidden = true;
       textarea.hidden = false;
       textarea.value = '';
-      textarea.focus();
+      textarea.focus({ preventScroll: true });
     } else {
       textarea.hidden = true;
       textInput.hidden = false;
       textInput.type = type;
       textInput.value = '';
-      textInput.focus();
+      textInput.focus({ preventScroll: true });
     }
   }
 
@@ -166,11 +209,13 @@ document.getElementById('year').textContent = new Date().getFullYear();
     form.style.display = 'none';
     chatMeta.style.display = 'none';
 
+    sendCompletedReport();
+
     showTyping();
     window.setTimeout(() => {
       removeTyping();
       addBubble(
-        `Thanks, ${answers.name}! This site isn’t wired to a backend yet, so tap below to send everything straight to our inbox.`,
+        `Thanks, ${answers.name}! We've got your details and will be in touch soon. Prefer to also send this from your own inbox?`,
         'bot'
       );
 
@@ -211,6 +256,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
     log.innerHTML = '';
     Object.keys(answers).forEach((k) => delete answers[k]);
     stepIndex = 0;
+    reportSent = false;
     form.style.display = '';
     chatMeta.style.display = '';
     askStep();
@@ -222,7 +268,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
     const value = currentValue();
 
     if (step.required && !value) {
-      textInput.hidden ? textarea.focus() : textInput.focus();
+      const target = textInput.hidden ? textarea : textInput;
+      target.focus({ preventScroll: true });
       return;
     }
     if (value && step.validate) {
