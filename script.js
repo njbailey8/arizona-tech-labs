@@ -34,6 +34,22 @@ revealTargets.forEach((el) => observer.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Hero video — soft fade through the loop point instead of a hard jump-cut
+(function initHeroVideo() {
+  const video = document.getElementById('hero-video');
+  if (!video) return;
+
+  video.addEventListener('timeupdate', () => {
+    if (!video.duration) return;
+    const remaining = video.duration - video.currentTime;
+    if (remaining < 0.35) {
+      video.classList.add('is-looping');
+    } else if (video.currentTime > 0.35) {
+      video.classList.remove('is-looping');
+    }
+  });
+})();
+
 // ---------- Conversational contact form ----------
 (function initChatForm() {
   const log = document.getElementById('chat-log');
