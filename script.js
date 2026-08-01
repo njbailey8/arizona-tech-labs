@@ -251,7 +251,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       actions.className = 'chat-actions';
 
       const mailLink = document.createElement('a');
-      mailLink.href = `mailto:hello@arizonatechlabs.com?subject=${subject}&body=${body}`;
+      mailLink.href = `mailto:nathan@arizonatechlabs.com?subject=${subject}&body=${body}`;
       mailLink.className = 'btn btn-primary';
       mailLink.textContent = 'Send via email';
       actions.appendChild(mailLink);

@@ -285,8 +285,9 @@
         prototype would look like and what it would cost.
       </p>
 
-      <!-- This is a static site with no backend. Answers are compiled into a
-           prefilled mailto: link on the final step rather than posted anywhere. -->
+      <!-- Static site, no backend. Answers post to Formspree (completed sessions
+           via fetch, abandoned ones via sendBeacon), and the final step also offers
+           a prefilled mailto: link so the visitor can send a copy themselves. -->
       <div class="chat-form" id="chat-form">
         <div class="chat-progress" aria-hidden="true">
           <div class="chat-progress-bar" id="chat-progress-bar"></div>
@@ -306,7 +307,7 @@
 
       <p class="form-fallback">
         Prefer email? Reach us directly at
-        <a href="mailto:hello@arizonatechlabs.com">hello@arizonatechlabs.com</a>
+        <a href="mailto:nathan@arizonatechlabs.com">nathan@arizonatechlabs.com</a>
       </p>
     </div>
   </section>
