@@ -342,7 +342,7 @@ textarea:focus-visible {
 }
 .offer-price span { font-size: 0.85rem; font-weight: 400; color: var(--text-muted-inverse); }
 .offer-list { margin-top: auto; padding-top: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; }
-.offer-list li::before { content: "— "; color: var(--terracotta); }
+.offer-list li::before { content: "· "; color: var(--terracotta); }
 
 .objections {
   margin-top: 56px;
@@ -372,7 +372,7 @@ textarea:focus-visible {
 }
 .compare-card h3 { color: #fff; }
 .compare-card ul { display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem; color: var(--text-muted-inverse); }
-.compare-card li::before { content: "— "; color: var(--terracotta); }
+.compare-card li::before { content: "· "; color: var(--terracotta); }
 .compare-tag {
   display: inline-block;
   font-size: 0.78rem;

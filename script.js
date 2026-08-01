@@ -34,7 +34,7 @@ revealTargets.forEach((el) => observer.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Hero video — soft fade through the loop point instead of a hard jump-cut
+// Hero video: soft fade through the loop point instead of a hard jump-cut
 (function initHeroVideo() {
   const video = document.getElementById('hero-video');
   if (!video) return;
@@ -68,7 +68,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       key: 'name',
       type: 'text',
       required: true,
-      bot: () => "Hi! I'm here to help scope your Prototype Sprint. What's your name?",
+      bot: () => "Hi! A few quick questions and we'll get back to you with what a first prototype would look like. What's your name?",
     },
     {
       key: 'business',
@@ -81,7 +81,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       type: 'email',
       required: true,
       bot: () => "What's the best email to reach you at?",
-      validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || 'That doesn’t look like a valid email — mind trying again?',
+      validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || 'That doesn’t look like a valid email. Mind trying again?',
     },
     {
       key: 'phone',
@@ -93,7 +93,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
       key: 'message',
       type: 'textarea',
       required: true,
-      bot: () => 'Last thing — what’s the workflow or process that’s slowing you down most right now?',
+      bot: () => 'Last one. What’s eating the most time right now? Plain words are fine.',
     },
   ];
 
@@ -101,7 +101,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   let stepIndex = 0;
 
   // ---- Email reporting (Formspree) ----
-  // Sends whatever's been collected so far — on normal completion via fetch,
+  // Sends whatever's been collected so far: on normal completion via fetch,
   // or via sendBeacon if the visitor closes/leaves the tab mid-chat, so
   // partial sessions still reach the inbox.
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdnekda';
@@ -116,7 +116,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
     fd.append('email', answers.email || '');
     fd.append('phone', answers.phone || '');
     fd.append('message', answers.message || '');
-    fd.append('_subject', `Chat ${status} — ${answers.business || answers.name || 'anonymous visitor'}`);
+    fd.append('_subject', `Chat ${status}: ${answers.business || answers.name || 'anonymous visitor'}`);
     return fd;
   }
 
@@ -235,7 +235,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         'bot'
       );
 
-      const subject = encodeURIComponent(`Prototype Sprint inquiry — ${answers.business}`);
+      const subject = encodeURIComponent(`Prototype Sprint inquiry: ${answers.business}`);
       const bodyLines = [
         `Name: ${answers.name}`,
         `Business: ${answers.business}`,
