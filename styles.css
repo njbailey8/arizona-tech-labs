@@ -166,6 +166,14 @@ textarea:focus-visible {
 }
 .nav-cta:hover { background: var(--terracotta-dark); }
 
+.nav-phone {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink) !important;
+}
+.nav-phone::before { content: "☎ "; color: var(--terracotta); }
+.nav-phone:hover { color: var(--terracotta-dark) !important; }
+
 .nav-toggle {
   display: flex;
   flex-direction: column;
@@ -590,8 +598,9 @@ textarea:focus-visible {
   align-self: flex-start;
 }
 
-.form-fallback { margin-top: 20px; font-size: 0.9rem; color: var(--text-muted); }
+.form-fallback { margin-top: 20px; font-size: 0.95rem; color: var(--text-muted); }
 .form-fallback a { color: var(--terracotta-dark); font-weight: 600; text-decoration: none; }
+.form-fallback a:hover { text-decoration: underline; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--navy-950); color: var(--text-muted-inverse); padding: 48px 0; }
@@ -604,6 +613,23 @@ textarea:focus-visible {
   justify-content: space-between;
 }
 .footer-inner p { margin: 0; }
+.footer-contact {
+  margin-top: 12px !important;
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+.footer-contact a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-contact a:hover { color: var(--terracotta); }
+.footer-contact span {
+  color: var(--text-muted-inverse);
+  font-weight: 400;
+  font-size: 0.82rem;
+}
+
 .footer-nav { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.9rem; }
 .footer-nav a { text-decoration: none; }
 .footer-nav a:hover { color: var(--terracotta); }
