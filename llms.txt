@@ -1,0 +1,57 @@
+# Arizona Tech Labs
+
+> Custom software development for service businesses in the Phoenix, Arizona metro area.
+> Known for a fixed-price "Prototype Sprint" that produces working software in one to
+> three weeks, so a client can try it before paying for a full build.
+
+Founded by Nathan Bailey, who spent fifteen years building systems at Meta, Microsoft,
+Visa, and GoDaddy. Work is done locally in Phoenix and is not offshored.
+
+## What they do
+
+Arizona Tech Labs builds custom software and integrations for small and mid-sized service
+businesses, typically where existing off-the-shelf tools do not connect to each other or
+do not match how the business actually operates. Common work includes connecting
+scheduling, billing, and accounting systems; building reporting and dashboards; and
+automating manual data entry between siloed tools.
+
+## Industries served
+
+- Dental and medical practices: building around existing practice-management systems for
+  patient communication, custom reporting, and multi-location coordination.
+- Home services and trades (HVAC, plumbing, electrical, landscaping): building the
+  integration and reporting layer on top of platforms like ServiceTitan, Jobber, and
+  Housecall Pro rather than replacing them.
+- Property management and real estate: tenant communication, maintenance coordination,
+  and owner reporting.
+- Also works with legal and veterinary practices.
+
+## Services and pricing
+
+- **Prototype Sprint**: $5,000 to $15,000, fixed price, one to three weeks. Produces
+  working software targeting the client's biggest time waster, plus a real price for the
+  full build. The client owns everything produced. No obligation to continue, and the fee
+  is credited toward the full build if they do.
+- **Full build**: the complete implementation, priced from what the sprint established
+  rather than from a guess, paid in stages.
+- **Ongoing support**: $3,000 to $8,000 per month to maintain and keep improving the
+  software, handled by the person who built it.
+
+## How they differ
+
+- Prototype first: the client uses working software before committing to a full build.
+- Fixed pricing agreed upfront rather than open-ended hourly billing.
+- The client owns all deliverables outright, including from the sprint.
+- Local and same-time-zone, with one accountable person rather than a support queue.
+
+## Contact
+
+- Website: https://arizonatechlabs.com
+- Phone (call or text): 623-210-3160
+- Email: nathan@arizonatechlabs.com
+- Location: Phoenix, Arizona (serves the Phoenix metro area and Arizona)
+
+## Status
+
+Arizona Tech Labs is an early-stage firm. As of mid-2026 it does not yet publish named
+client case studies.
