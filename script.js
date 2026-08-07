@@ -34,6 +34,31 @@ revealTargets.forEach((el) => observer.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Mobile sticky CTA: show it once the hero's own buttons have scrolled away,
+// hide it again over the chat form so it never covers the input.
+(function initMobileCta() {
+  const bar = document.getElementById('mobile-cta');
+  const hero = document.querySelector('.hero');
+  const chat = document.getElementById('chat-form');
+  if (!bar || !hero) return;
+
+  let pastHero = false;
+  let atForm = false;
+  const sync = () => bar.classList.toggle('is-visible', pastHero && !atForm);
+
+  new IntersectionObserver(
+    ([entry]) => { pastHero = !entry.isIntersecting; sync(); },
+    { threshold: 0 }
+  ).observe(hero);
+
+  if (chat) {
+    new IntersectionObserver(
+      ([entry]) => { atForm = entry.isIntersecting; sync(); },
+      { threshold: 0.2 }
+    ).observe(chat);
+  }
+})();
+
 // Hero video: soft fade through the loop point instead of a hard jump-cut
 (function initHeroVideo() {
   const video = document.getElementById('hero-video');

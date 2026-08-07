@@ -174,6 +174,38 @@ textarea:focus-visible {
 .nav-phone::before { content: "☎ "; color: var(--terracotta); }
 .nav-phone:hover { color: var(--terracotta-dark) !important; }
 
+/* Always-visible tap-to-call on mobile. The full nav (with its own phone link)
+   collapses behind the hamburger below 900px, so this stands in for it. */
+.header-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-left: auto;
+  margin-right: 10px;
+  padding: 0 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ink);
+}
+.header-call::before { content: "☎"; color: var(--terracotta); font-size: 1.15rem; }
+.header-call:hover { color: var(--terracotta-dark); }
+.header-call-short { display: none; }
+/* Tighten the wordmark before the number has to go */
+@media (max-width: 479px) {
+  .logo { font-size: 1.05rem; }
+  .header-call { font-size: 0.9rem; margin-right: 6px; }
+}
+/* Narrowest phones: swap the number for a word rather than a bare icon,
+   which on its own reads as decoration instead of an action */
+@media (max-width: 389px) {
+  .header-call-num { display: none; }
+  .header-call-short { display: inline; }
+}
+@media (min-width: 900px) { .header-call { display: none; } }
+
 .nav-toggle {
   display: flex;
   flex-direction: column;
@@ -360,6 +392,20 @@ textarea:focus-visible {
 @media (min-width: 900px) { .objections { grid-template-columns: repeat(3, 1fr); } }
 .objection h4 { color: #fff; font-size: 1rem; margin-bottom: 0.5em; }
 .objection p { color: var(--text-muted-inverse); font-size: 0.92rem; }
+
+/* ---------- Section-level CTA ---------- */
+.section-cta {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.section-cta-note { margin: 0; font-size: 0.92rem; color: var(--text-muted); }
+.section-dark .section-cta-note { color: var(--text-muted-inverse); }
+.section-cta-note a { color: var(--terracotta-dark); font-weight: 600; text-decoration: none; }
+.section-dark .section-cta-note a { color: var(--terracotta); }
+.section-cta-note a:hover { text-decoration: underline; }
 
 /* ---------- Verticals ---------- */
 .vertical-sub { color: var(--terracotta-dark); font-weight: 600; margin-bottom: 0.6em; font-size: 0.92rem; }
@@ -688,6 +734,51 @@ textarea:focus-visible {
 .footer-nav a:hover { color: var(--terracotta); }
 .footer-copy { width: 100%; font-size: 0.8rem; color: #5b6980; border-top: 1px solid var(--border-dark); padding-top: 20px; margin-top: 8px; }
 
+/* ---------- Mobile sticky CTA ---------- */
+.mobile-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  display: flex;
+  gap: 10px;
+  padding: 10px 16px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  background: rgba(250, 247, 242, 0.97);
+  border-top: 1px solid var(--border-light);
+  box-shadow: 0 -10px 28px -14px rgba(12, 20, 32, 0.45);
+  visibility: hidden;
+  transform: translateY(110%);
+  transition: transform 0.25s ease, visibility 0.25s ease;
+}
+.mobile-cta.is-visible { visibility: visible; transform: translateY(0); }
+.mobile-cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.mobile-cta-call {
+  flex: 0 0 32%;
+  border: 2px solid var(--navy-700);
+  color: var(--navy-900);
+}
+.mobile-cta-call::before { content: "☎"; color: var(--terracotta); margin-right: 6px; }
+.mobile-cta-primary {
+  flex: 1;
+  background: var(--terracotta);
+  color: #fff;
+  box-shadow: 0 10px 24px -12px rgba(217, 123, 74, 0.75);
+}
+/* Keep the bar from sitting on top of the footer's last line */
+@media (max-width: 899px) { .site-footer { padding-bottom: 104px; } }
+@media (min-width: 900px) { .mobile-cta { display: none; } }
+
 /* ---------- Reveal-on-scroll ---------- */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -695,4 +786,5 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .mobile-cta { transition: none; }
 }

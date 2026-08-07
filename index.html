@@ -267,6 +267,9 @@
       <a href="tel:+16232103160" class="nav-phone">623-210-3160</a>
       <a href="#contact" class="nav-cta">Start with a prototype</a>
     </nav>
+    <!-- Mobile-only: the nav above collapses behind the hamburger below 900px,
+         which would otherwise hide the phone number at every scroll position. -->
+    <a href="tel:+16232103160" class="header-call" aria-label="Call or text 623-210-3160"><span class="header-call-num">623-210-3160</span><span class="header-call-short">Call</span></a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
@@ -410,6 +413,11 @@
           <h4>"I need to know what this actually costs."</h4>
           <p>One number, agreed before we start. No hourly billing, no surprise line items at the end.</p>
         </div>
+      </div>
+
+      <div class="section-cta">
+        <a href="#contact" class="btn btn-primary">Start with a prototype</a>
+        <p class="section-cta-note">Or skip the form and call <a href="tel:+16232103160">623-210-3160</a>.</p>
       </div>
     </div>
   </section>
@@ -583,6 +591,11 @@
           </div>
         </details>
       </div>
+
+      <div class="section-cta">
+        <a href="#contact" class="btn btn-primary">Start with a prototype</a>
+        <p class="section-cta-note">Question we didn't cover? Call or text <a href="tel:+16232103160">623-210-3160</a>.</p>
+      </div>
     </div>
   </section>
 
@@ -648,6 +661,13 @@
     <p class="footer-copy">&copy; <span id="year"></span> Arizona Tech Labs. All rights reserved.</p>
   </div>
 </footer>
+
+<!-- Mobile-only conversion bar. Appears once the hero scrolls away and hides
+     again over the contact form, so it never covers the chat input. -->
+<div class="mobile-cta" id="mobile-cta">
+  <a href="tel:+16232103160" class="mobile-cta-call">Call</a>
+  <a href="#contact" class="mobile-cta-primary">Start with a prototype</a>
+</div>
 
 <script src="script.js"></script>
 
