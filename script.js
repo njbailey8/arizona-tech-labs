@@ -92,18 +92,21 @@ document.getElementById('year').textContent = new Date().getFullYear();
     {
       key: 'name',
       type: 'text',
+      autocomplete: 'name',
       required: true,
       bot: () => "Hi! A few quick questions and we'll get back to you with what a first prototype would look like. What's your name?",
     },
     {
       key: 'business',
       type: 'text',
+      autocomplete: 'organization',
       required: true,
       bot: (a) => `Nice to meet you, ${a.name}. What's the name of your business?`,
     },
     {
       key: 'email',
       type: 'email',
+      autocomplete: 'email',
       required: true,
       bot: () => "What's the best email to reach you at?",
       validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || 'That doesn’t look like a valid email. Mind trying again?',
@@ -111,12 +114,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
     {
       key: 'phone',
       type: 'tel',
+      autocomplete: 'tel',
       required: false,
       bot: () => 'And a phone number, if you’d like a call back?',
     },
     {
       key: 'message',
       type: 'textarea',
+      autocomplete: 'off',
       required: true,
       bot: () => 'Last one. What’s eating the most time right now? Plain words are fine.',
     },
@@ -199,17 +204,23 @@ document.getElementById('year').textContent = new Date().getFullYear();
     if (typing) typing.remove();
   }
 
-  function setActiveInputType(type) {
-    if (type === 'textarea') {
+  // The one input is reused for every question, so the autofill hint has to be
+  // set per step. Without it the browser has no idea the field wants a name,
+  // an email or a phone number, and offers nothing.
+  function setActiveInputType(step) {
+    const hint = step.autocomplete || 'off';
+    if (step.type === 'textarea') {
       textInput.hidden = true;
       textarea.hidden = false;
       textarea.value = '';
+      textarea.setAttribute('autocomplete', hint);
       textarea.focus({ preventScroll: true });
     } else {
       textarea.hidden = true;
       textInput.hidden = false;
-      textInput.type = type;
+      textInput.type = step.type;
       textInput.value = '';
+      textInput.setAttribute('autocomplete', hint);
       textInput.focus({ preventScroll: true });
     }
   }
@@ -235,7 +246,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
     window.setTimeout(() => {
       removeTyping();
       addBubble(step.bot(answers), 'bot');
-      setActiveInputType(step.type);
+      setActiveInputType(step);
     }, 450);
   }
 
@@ -326,7 +337,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
         window.setTimeout(() => {
           removeTyping();
           addBubble(typeof result === 'string' ? result : 'Mind double-checking that?', 'bot');
-          setActiveInputType(step.type);
+          setActiveInputType(step);
         }, 400);
         return;
       }

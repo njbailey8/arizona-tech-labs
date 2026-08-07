@@ -283,6 +283,15 @@ textarea:focus-visible {
   gap: 16px;
   margin: 32px 0;
 }
+/* Credibility sits directly under the CTAs, where the hesitation is */
+.hero-cred {
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+  color: var(--text-muted-inverse);
+  max-width: 560px;
+}
+.hero-cred strong { color: #fff; font-weight: 600; }
+
 .hero-proof {
   display: flex;
   flex-wrap: wrap;

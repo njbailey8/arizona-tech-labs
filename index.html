@@ -293,6 +293,7 @@
           <a href="#contact" class="btn btn-primary">Start with a prototype</a>
           <a href="#offer" class="btn btn-ghost">See how it works</a>
         </div>
+        <p class="hero-cred">Fifteen years building systems at <strong>Meta</strong>, <strong>Microsoft</strong>, <strong>Visa</strong>, and <strong>GoDaddy</strong>.</p>
         <ul class="hero-proof">
           <li>One price, agreed upfront</li>
           <li>Whatever we build is yours to keep</li>
@@ -619,7 +620,8 @@
         <div class="chat-log" id="chat-log" aria-live="polite"></div>
         <form class="chat-input-row" id="chat-input-form">
           <label for="chat-input" class="sr-only">Your answer</label>
-          <input type="text" id="chat-input" class="chat-input" autocomplete="off" placeholder="Type your answer…">
+          <!-- autocomplete is set per step in script.js, since one input serves every question -->
+          <input type="text" id="chat-input" class="chat-input" placeholder="Type your answer…">
           <textarea id="chat-textarea" class="chat-input" rows="3" placeholder="Type your answer…" hidden></textarea>
           <button type="submit" class="btn btn-primary chat-send" id="chat-send" aria-label="Send answer">→</button>
         </form>
