@@ -104,8 +104,12 @@ document.getElementById('year').textContent = new Date().getFullYear();
   // Sends whatever's been collected so far: on normal completion via fetch,
   // or via sendBeacon if the visitor closes/leaves the tab mid-chat, so
   // partial sessions still reach the inbox.
+  // Tracked separately: a partial beacon must never suppress the completed
+  // submission. Sharing one flag meant a visitor who tabbed away mid-chat and
+  // came back to finish had their finished answers dropped silently.
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdnekda';
-  let reportSent = false;
+  let completedSent = false;
+  let abandonedSent = false;
 
   function buildReportData(status) {
     const fd = new FormData();
@@ -121,8 +125,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }
 
   function sendCompletedReport() {
-    if (reportSent) return;
-    reportSent = true;
+    if (completedSent) return;
+    completedSent = true;
     fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
       headers: { Accept: 'application/json' },
@@ -132,9 +136,9 @@ document.getElementById('year').textContent = new Date().getFullYear();
   }
 
   function sendAbandonedReportIfNeeded() {
-    if (reportSent) return;
+    if (completedSent || abandonedSent) return;
     if (!answers.name && !answers.email) return;
-    reportSent = true;
+    abandonedSent = true;
     navigator.sendBeacon(FORMSPREE_ENDPOINT, buildReportData('abandoned'));
   }
 
@@ -272,7 +276,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
     log.innerHTML = '';
     Object.keys(answers).forEach((k) => delete answers[k]);
     stepIndex = 0;
-    reportSent = false;
+    completedSent = false;
+    abandonedSent = false;
     form.style.display = '';
     chatMeta.style.display = '';
     askStep();
